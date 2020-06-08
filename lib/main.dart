@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertd/routs/routs.dart';
 import 'package:fluttertd/tabbar/td_bottom_bar.dart';
 
 void main() {
@@ -10,7 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-//      debugShowCheckedModeBanner: false,
+//      路由跳转
+      routes: TDRouter.routers,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.green,
