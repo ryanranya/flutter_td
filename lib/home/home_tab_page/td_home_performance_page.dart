@@ -1,8 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertd/api/page_request/home_list_request.dart';
+import 'package:fluttertd/home/home_page_model/home_performance_model.dart';
 import 'package:fluttertd/home/homewidget/search_button_widget.dart';
 import 'package:fluttertd/home/homewidget/swiper_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -78,6 +80,8 @@ class _TDHomePerformancePageState extends State<TDHomePerformancePage>
     }
   ];
 
+  final List<HomePagePerformanceDataList> homePagePerformanceDataList = [];
+
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
@@ -87,7 +91,11 @@ class _TDHomePerformancePageState extends State<TDHomePerformancePage>
     // TODO: implement initState
     super.initState();
     HomePerformancePageList.requestHomePagePerformanceList(0).then((res){
-      print("HomePage${res}");
+      print("HomePage${res.result.dataList.length}");
+      setState(() {
+        homePagePerformanceDataList.addAll(res.result.dataList);
+      });
+
     });
   }
 
@@ -158,11 +166,17 @@ class _TDHomePerformancePageState extends State<TDHomePerformancePage>
               itemExtent: 100, //给一个高度
               delegate: SliverChildBuilderDelegate(
                 (BuildContext ctx, int index) {
-                  return Container(
-                    child: Text('123'),
+                  return Row(
+                    children: <Widget>[
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.network(homePagePerformanceDataList[index].avatar,height: 150,),
+                      )
+
+                    ],
                   );
                 },
-                childCount: 5,
+                childCount: homePagePerformanceDataList.length,
               ),
             ),
           ),
