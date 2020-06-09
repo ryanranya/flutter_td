@@ -9,6 +9,7 @@ import 'package:fluttertd/home/homewidget/search_button_widget.dart';
 import 'package:fluttertd/home/homewidget/swiper_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertd/home/homewidget/td_home_bestpick.dart';
+import 'package:fluttertd/home/homewidget/td_home_performance_localevent.dart';
 import 'package:fluttertd/home/homewidget/td_home_sectiontitle_item.dart';
 
 class TDHomePerformancePage extends StatefulWidget {
@@ -90,12 +91,11 @@ class _TDHomePerformancePageState extends State<TDHomePerformancePage>
   void initState() {
     // TODO: implement initState
     super.initState();
-    HomePerformancePageList.requestHomePagePerformanceList(0).then((res){
+    HomePerformancePageList.requestHomePagePerformanceList(0).then((res) {
       print("HomePage${res.result.dataList.length}");
       setState(() {
         homePagePerformanceDataList.addAll(res.result.dataList);
       });
-
     });
   }
 
@@ -118,7 +118,7 @@ class _TDHomePerformancePageState extends State<TDHomePerformancePage>
               pinned: false,
               flexibleSpace: SearchButtonItem()),
           SliverPadding(
-            padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+            padding: EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 20),
             sliver: SliverFixedExtentList(
               itemExtent: 140, //给一个高度
               delegate: SliverChildBuilderDelegate(
@@ -153,7 +153,7 @@ class _TDHomePerformancePageState extends State<TDHomePerformancePage>
             sliver: SliverFixedExtentList(
               itemExtent: 40, //给一个高度
               delegate: SliverChildBuilderDelegate(
-                    (BuildContext ctx, int index) {
+                (BuildContext ctx, int index) {
                   return TDHomePageSectionItem("home_title_local");
                 },
                 childCount: 1,
@@ -163,18 +163,10 @@ class _TDHomePerformancePageState extends State<TDHomePerformancePage>
           SliverPadding(
             padding: EdgeInsets.all(0),
             sliver: SliverFixedExtentList(
-              itemExtent: 100, //给一个高度
+              itemExtent: 220,
               delegate: SliverChildBuilderDelegate(
                 (BuildContext ctx, int index) {
-                  return Row(
-                    children: <Widget>[
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.network(homePagePerformanceDataList[index].avatar,height: 150,),
-                      )
-
-                    ],
-                  );
+                  return TDHomePerformanceLocalevent(homePagePerformanceDataList[index]);
                 },
                 childCount: homePagePerformanceDataList.length,
               ),

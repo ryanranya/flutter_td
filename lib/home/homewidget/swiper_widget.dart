@@ -13,12 +13,19 @@ class SwiperPage extends StatelessWidget {
   }
 
   Widget BannerContainer() {
-    return PhysicalModel(
-      color: Colors.transparent,
-      borderRadius: BorderRadius.circular(8),
-      clipBehavior: Clip.antiAlias,
-      child: Container(
+    return Container(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
         child: bannerSwiper(),
+      ),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+              color: Color.fromARGB(255, 211, 211, 211),
+              offset: Offset(-1.0, 1.0),
+              blurRadius: 10.0,
+              spreadRadius: 5),
+        ],
       ),
     );
   }
