@@ -25,11 +25,11 @@ class _TDHomePageContentState extends State<TDHomePageContent>
     super.initState();
 //    _controller = AnimationController(vsync: this);
     _tabController = TabController(length: tabs.length, vsync: this);
-    evenBus.on<HomePagePerformanceEvenBus>().listen((scrollViewDistance) {
-      setState(() {
-//        print(_isShowSearchIcon);
-      });
-    });
+//    evenBus.on<HomePagePerformanceEvenBus>().listen((scrollViewDistance) {
+//      setState(() {
+//
+//      });
+//    });
   }
 
   @override

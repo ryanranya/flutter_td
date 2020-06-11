@@ -18,18 +18,26 @@ class _TDHomeRaisePageState extends State<TDHomeRaisePage>
   void initState() {
     // TODO: implement initState
     super.initState();
-    HomeRaisePageList.requestRaisePerformanceList(0).then((res) {
-      print("HomePage${res}");
-      setState(() {
-        _homePageRaiseThemes.addAll(res.result.themes);
-        _homePageRaiseHotGoods.addAll(res.result.hotGoods);
-      });
-    });
+//    HomeRaisePageList.requestRaisePerformanceList(0).then((res) {
+//      print("HomePage${res}");
+//      setState(() {
+//        _homePageRaiseThemes.addAll(res.result.themes);
+//        _homePageRaiseHotGoods.addAll(res.result.hotGoods);
+//      });
+//    });
+    _homePageRaiseThemes.addAll(HomeRaisePageList.requestRaisePerformanceList().result.themes);
+    _homePageRaiseHotGoods.addAll(HomeRaisePageList.requestRaisePerformanceList().result.hotGoods);
   }
 
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
