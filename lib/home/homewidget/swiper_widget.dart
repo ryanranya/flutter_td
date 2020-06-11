@@ -22,9 +22,9 @@ class SwiperPage extends StatelessWidget {
         boxShadow: [
           BoxShadow(
               color: Color.fromARGB(255, 211, 211, 211),
-              offset: Offset(-1.0, 1.0),
+              offset: Offset(-1.0, 0.5),
               blurRadius: 10.0,
-              spreadRadius: 5),
+              spreadRadius: 1.5),
         ],
       ),
     );

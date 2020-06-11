@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertd/api/page_request/home_list_request.dart';
+import 'package:fluttertd/even_bus/evenbus.dart';
+import 'package:fluttertd/even_bus/td_home_performance_evenbus.dart';
 import 'package:fluttertd/home/home_page_model/home_performance_model.dart';
 import 'package:fluttertd/home/homewidget/search_button_widget.dart';
 import 'package:fluttertd/home/homewidget/swiper_widget.dart';
@@ -82,7 +84,7 @@ class _TDHomePerformancePageState extends State<TDHomePerformancePage>
   ];
 
   final List<HomePagePerformanceDataList> homePagePerformanceDataList = [];
-
+  double scrollDistance;
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
@@ -110,69 +112,81 @@ class _TDHomePerformancePageState extends State<TDHomePerformancePage>
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-              backgroundColor: Colors.white,
-              expandedHeight: 60,
-              pinned: false,
-              flexibleSpace: SearchButtonItem()),
-          SliverPadding(
-            padding: EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 20),
-            sliver: SliverFixedExtentList(
-              itemExtent: 140, //给一个高度
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext ctx, int index) {
-                  return SwiperPage(imageURL);
-                },
-                childCount: 1,
+      child: NotificationListener(
+        onNotification: (ScrollNotification notification){
+          if (notification is ScrollUpdateNotification && notification.depth == 0){
+             if (notification is ScrollUpdateNotification) {
+              scrollDistance = notification.metrics.pixels;
+              evenBus.fire(HomePagePerformanceEvenBus(scrollDistance));
+            }
+            return true;
+          }
+          return false;
+        },
+        child: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+                primary: false,
+                backgroundColor: Colors.white,
+                pinned: false,
+                flexibleSpace: SearchButtonItem()),
+            SliverPadding(
+              padding: EdgeInsets.only(left: 20, right: 20, bottom: 30, top: 10),
+              sliver: SliverFixedExtentList(
+                itemExtent: 140, //给一个高度
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext ctx, int index) {
+                    return SwiperPage(imageURL);
+                  },
+                  childCount: 1,
+                ),
               ),
             ),
-          ),
-          SliverPadding(
-            padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-            sliver: SliverFixedExtentList(
-              itemExtent: 40, //给一个高度
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext ctx, int index) {
-                  return TDHomePageSectionItem("home_title_pick");
-                },
-                childCount: 1,
+            SliverPadding(
+              padding: EdgeInsets.only(left: 20, right: 20, bottom: 5),
+              sliver: SliverFixedExtentList(
+                itemExtent: 40, //给一个高度
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext ctx, int index) {
+                    return TDHomePageSectionItem("home_title_pick");
+                  },
+                  childCount: 1,
+                ),
               ),
             ),
-          ),
-          SliverToBoxAdapter(
-            child: Container(
-              width: double.infinity,
-              height: 320,
-              child: TDHomePageBestPick(bastPickArray),
-            ),
-          ),
-          SliverPadding(
-            padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-            sliver: SliverFixedExtentList(
-              itemExtent: 40, //给一个高度
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext ctx, int index) {
-                  return TDHomePageSectionItem("home_title_local");
-                },
-                childCount: 1,
+            SliverToBoxAdapter(
+              child: Container(
+                width: double.infinity,
+                height: 320,
+                child: TDHomePageBestPick(bastPickArray),
               ),
             ),
-          ),
-          SliverPadding(
-            padding: EdgeInsets.all(0),
-            sliver: SliverFixedExtentList(
-              itemExtent: 220,
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext ctx, int index) {
-                  return TDHomePerformanceLocalevent(homePagePerformanceDataList[index]);
-                },
-                childCount: homePagePerformanceDataList.length,
+            SliverPadding(
+              padding: EdgeInsets.only(left: 20, right: 20, bottom: 5,top: 10),
+              sliver: SliverFixedExtentList(
+                itemExtent: 40, //给一个高度
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext ctx, int index) {
+                    return TDHomePageSectionItem("home_title_local");
+                  },
+                  childCount: 1,
+                ),
               ),
             ),
-          ),
-        ],
+            SliverPadding(
+              padding: EdgeInsets.all(0),
+              sliver: SliverFixedExtentList(
+                itemExtent: 220,
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext ctx, int index) {
+                    return TDHomePerformanceLocalevent(homePagePerformanceDataList[index]);
+                  },
+                  childCount: homePagePerformanceDataList.length,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

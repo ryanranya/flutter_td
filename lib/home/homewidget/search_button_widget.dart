@@ -19,10 +19,10 @@ class _SearchButtonItemState extends State<SearchButtonItem> {
         color: Color.fromARGB(255, 245,245,245),
         borderRadius: BorderRadius.circular(8),
       ),
-      margin: EdgeInsets.all(20),
+      margin: EdgeInsets.only(left: 20,right: 20),
       child: ButtonTheme(
         minWidth: double.infinity - 40,
-        height: 80,
+        height: 40,
         child: FlatButton(
 //          去掉水波纹效果
           splashColor: Colors.transparent,
