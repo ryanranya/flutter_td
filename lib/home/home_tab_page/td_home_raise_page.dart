@@ -18,13 +18,6 @@ class _TDHomeRaisePageState extends State<TDHomeRaisePage>
   void initState() {
     // TODO: implement initState
     super.initState();
-//    HomeRaisePageList.requestRaisePerformanceList(0).then((res) {
-//      print("HomePage${res}");
-//      setState(() {
-//        _homePageRaiseThemes.addAll(res.result.themes);
-//        _homePageRaiseHotGoods.addAll(res.result.hotGoods);
-//      });
-//    });
     _homePageRaiseThemes.addAll(HomeRaisePageList.requestRaisePerformanceList().result.themes);
     _homePageRaiseHotGoods.addAll(HomeRaisePageList.requestRaisePerformanceList().result.hotGoods);
   }
@@ -66,12 +59,20 @@ class _TDHomeRaisePageState extends State<TDHomeRaisePage>
                         SizedBox(height: 20),
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Stack(
+                          child: Container(
+                            width: double.infinity,
+                            height: 230,
+                            child: Stack(
                             alignment: Alignment.bottomLeft,
-                            children: <Widget>[
+                              children: <Widget>[
                               Container(
-                                child: Image.network(
-                                    _homePageRaiseThemes[index].detailPath),
+                                width: double.infinity,
+                                height: 230,
+                                child:
+                                Image.network(
+                                    _homePageRaiseThemes[index].detailPath,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                               Positioned(
                                 left: 0,
@@ -92,7 +93,7 @@ class _TDHomeRaisePageState extends State<TDHomeRaisePage>
                               ),
                               Positioned(
                                 left: 20,
-                                bottom: 50,
+                                bottom: 45,
                                 child: Text(
                                   _homePageRaiseThemes[index].title,
                                   style: TextStyle(
@@ -103,16 +104,19 @@ class _TDHomeRaisePageState extends State<TDHomeRaisePage>
                               ),
                               Positioned(
                                 left: 20,
-                                bottom: 25,
+                                bottom: 20,
                                 child: Text(
                                   _homePageRaiseThemes[index].subTitle,
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 14),
                                 ),
                               ),
-                            ],
+                              ],
+                            ),
                           ),
                         )
+
+
                       ],
                     ),
                   );

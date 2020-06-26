@@ -51,6 +51,11 @@ class _SearchButtonItemState extends State<SearchButtonItem> {
   }
 
   void clickSearchButton(BuildContext context) {
-    Navigator.of(context).pushNamed(TDSearchPage.routName, arguments: "123");
+//    Navigator.of(context).pushNamed(TDSearchPage.routName, arguments: "123");
+  Navigator.of(context).push(MaterialPageRoute(builder: (context){
+    return TDSearchPage();
+  },
+    fullscreenDialog: true,
+  ));
   }
 }

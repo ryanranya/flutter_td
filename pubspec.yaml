@@ -37,8 +37,6 @@ dependencies:
   #网络请求
   dio: ^3.0.9
 
-
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
