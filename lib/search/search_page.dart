@@ -19,6 +19,7 @@ class _TDSearchPageState extends State<TDSearchPage> with WidgetsBindingObserver
 
   @override
   Widget build(BuildContext context) {
+    print(getfibolaqieNumber2(10));
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
@@ -28,11 +29,30 @@ class _TDSearchPageState extends State<TDSearchPage> with WidgetsBindingObserver
             TextField(
               
             )
+
           ],
         ),
 
       ),
     );
+  }
+
+  int getfibolaqieNumber1(int number){
+    if (number <= 1) return number;
+    return getfibolaqieNumber1(number - 1) + getfibolaqieNumber1(number - 2);
+  }
+
+  int getfibolaqieNumber2(int number){
+    if (number <= 1) return number;
+    int firstNumber = 0;
+    int second = 1;
+    for (int i = 0; i < (number - 1); i++){
+      int sum = firstNumber + second;
+      firstNumber = second;
+      second = sum;
+      print("$number,$firstNumber,$second");
+    }
+    return second;
   }
 
   Widget SearchBar(){
@@ -65,7 +85,6 @@ class _TDSearchPageState extends State<TDSearchPage> with WidgetsBindingObserver
                   border: InputBorder.none,
                   hintText: "演出，周边，众筹"
                 ),
-
               ),
             )
           ],
