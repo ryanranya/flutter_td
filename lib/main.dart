@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       routes: TDRouter.routers,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.blue,
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
       ),
