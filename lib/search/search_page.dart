@@ -23,6 +23,7 @@ class _TDSearchPageState extends State<TDSearchPage> with WidgetsBindingObserver
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
+        appBar: AppBar(title: Text("搜索一下"),),
         body: Column(
           children: <Widget>[
             SearchBar(),

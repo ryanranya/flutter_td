@@ -1,5 +1,8 @@
 
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertd/routs/application.dart';
+import 'package:fluttertd/routs/td_routers.dart';
 import 'package:fluttertd/search/search_page.dart';
 
 class SearchButtonItem extends StatefulWidget {
@@ -52,10 +55,12 @@ class _SearchButtonItemState extends State<SearchButtonItem> {
 
   void clickSearchButton(BuildContext context) {
 //    Navigator.of(context).pushNamed(TDSearchPage.routName, arguments: "123");
-  Navigator.of(context).push(MaterialPageRoute(builder: (context){
-    return TDSearchPage();
-  },
-    fullscreenDialog: true,
-  ));
+//  Navigator.of(context).push(MaterialPageRoute(builder: (context){
+//    return TDSearchPage();
+//  },
+//    fullscreenDialog: true,
+//  ));
+    Application.router.navigateTo(context, Routers.searchPage,transition: TransitionType.nativeModal);
+
   }
 }

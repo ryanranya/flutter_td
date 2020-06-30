@@ -1,112 +1,80 @@
+import 'package:fluro/fluro.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-const CITY_NAMES = {
-  '北京':['东城区','西城区','海淀区','朝阳区','石景山区','顺义区'],
-  '上海':['黄浦区','徐汇区','长宁区','静安区','普陀区','闸北区'],
-  '广州':['越秀','海珠','荔湾','天河','白云','黄埔','南沙'],
-  '深圳':['南山','福田','罗湖','盐田','龙岗','宝安','龙华'],
-  '杭州':['上城区','下城区','江干区','拱墅区','西湖区','滨江区'],
-  '苏州':['姑苏区','吴中区','相城区','高新区','虎丘区','工业园区','吴江区'],
-};
+import 'package:flutter/widgets.dart';
+import 'package:fluttertd/found/datas/pagerouteview.dart';
+import 'package:fluttertd/found/datas/widget_data.dart';
+import 'package:fluttertd/found/fibnumber/curve_animatedCross.dart';
+import 'package:fluttertd/routs/application.dart';
+import 'package:fluttertd/routs/td_routers.dart';
 
 class TDFoundPage extends StatelessWidget {
-  static List<String> dataSource = ["斐波那契数(0,1,1,2,3,5,8...)", "二叉树"];
+
+
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        title: Text('发现'),
+        title: Text('组件'),
       ),
-//      body: ListView.builder(
-//        itemBuilder: (BuildContext context, int index) {
-//          return _buildList(),
-//        },
-//        itemCount: dataSource.length,
-//      ),
-    body: CurveAnimatedCrossFade(),
+      body: ListView.builder(itemBuilder: (context, index) {
+        return contentCell(context,index);
+      }, itemCount: WidgetData.contentDataSourceDic.length,),
     );
   }
 
-  List<Widget> _buildList(){
-    List<Widget> widgets = [];
-    CITY_NAMES.keys.forEach((key){
-      widgets.add(_item(key, CITY_NAMES[key]));
-    });
-    return widgets;
-  }
-  Widget _item(String city,List<String> subCities){
-    return AnimatedCrossFade(
-//      title: Text(
-//        city,
-//        style: TextStyle(color: Colors.black54,fontSize: 20),
-//      ),
-//      children: subCities.map((subCity)=>_buildSub(subCity)).toList(),
-    );
-  }
-
-  Widget _buildSub(String subCity){
-    //可以设置撑满宽度的盒子 称之为百分百布局
-    return FractionallySizedBox(
-      //宽度因子 1为百分百撑满
-      widthFactor: 1,
+  Widget contentCell(BuildContext context,int index) {
+    TextStyle nameTextStyle = TextStyle(
+      fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black,);
+    TextStyle desTextStyle = TextStyle(
+      fontSize: 17,color: Colors.black45,);
+    return InkWell(
+      onTap: () {
+        PageRoutView.rout(index, context);
+//        Application.router
+//            .navigateTo(context, '/detail?id=${value['goodsId']}',transition: TransitionType.native);
+      },
       child: Container(
-        height: 50,
-        margin: EdgeInsets.only(bottom: 5),
-        decoration: BoxDecoration(color: Colors.lightBlueAccent),
-        child: Text(subCity),
+        child: Column(
+          children: <Widget>[
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(left: 10,top: 10),
+                    child: Image.network(WidgetData.contentDataSourceDic[index]["imageURL"],height: 120,)),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.only(left: 10,top: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(WidgetData.contentDataSourceDic[index]["name"],style: nameTextStyle,),
+                        SizedBox(height: 15,),
+                        Text(WidgetData.contentDataSourceDic[index]["des"],style: desTextStyle,maxLines: 2,overflow: TextOverflow.ellipsis,),
+                        SizedBox(height: 15,),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(text: "难道系数: ",style: TextStyle(fontSize: 14,color: Colors.black)),
+                              TextSpan(text: WidgetData.contentDataSourceDic[index]["leavel"].toString(),style: TextStyle(color: Colors.red,fontSize: 14)),
+                            ]
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+            SizedBox(height: 10,),
+            Divider(),
+          ],
+        ),
       ),
     );
   }
+
 }
 
-class CurveAnimatedCrossFade extends StatefulWidget {
-  @override
-  _CurveAnimatedCrossFadeState createState() => _CurveAnimatedCrossFadeState();
-}
-
-class _CurveAnimatedCrossFadeState extends State<CurveAnimatedCrossFade> {
-  var _crossFadeState = CrossFadeState.showFirst;
-
-  bool get isFirst=> _crossFadeState == CrossFadeState.showFirst;
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      children: <Widget>[
-        Container(
-          child: AnimatedCrossFade(
-            firstCurve: Curves.easeInCirc,
-            secondCurve: Curves.easeInToLinear,
-            sizeCurve: Curves.bounceOut,
-            firstChild: Container(
-              alignment: Alignment.center,
-              width: 200,
-              height: 80,
-              color: Colors.orange  ,
-              child: FlutterLogo(colors: Colors.blue,size: 50,),
-            ),
-            secondChild: Container(
-              width: 200,
-              height: 150,
-              alignment: Alignment.center,
-              color: Colors.blue,
-              child: FlutterLogo(
-                textColor: Colors.white,
-                colors: Colors.orange,size: 100,style: FlutterLogoStyle.stacked,),
-            ),
-            duration: Duration(milliseconds: 1000),
-            crossFadeState: _crossFadeState,
-          ),
-        ),
-        _buildSwitch(),
-      ],
-    );
-  }
-
-  Widget _buildSwitch() => Switch(value: isFirst, onChanged: (v){
-    setState(() {
-      _crossFadeState= v?CrossFadeState.showFirst:CrossFadeState.showSecond;
-    });
-  });
-}
