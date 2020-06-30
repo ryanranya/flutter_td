@@ -4,13 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertd/found/datas/pagerouteview.dart';
 import 'package:fluttertd/found/datas/widget_data.dart';
-import 'package:fluttertd/found/fibnumber/curve_animatedCross.dart';
-import 'package:fluttertd/routs/application.dart';
-import 'package:fluttertd/routs/td_routers.dart';
 
 class TDFoundPage extends StatelessWidget {
-
-
 
   @override
   Widget build(BuildContext context) {

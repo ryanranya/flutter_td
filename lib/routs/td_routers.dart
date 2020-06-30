@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertd/routs/router_animation.dart';
 import 'package:fluttertd/routs/router_curveanimated.dart';
+import 'package:fluttertd/routs/router_tableview.dart';
 import 'package:fluttertd/routs/search_pagerouter.dart';
 
 class Routers{
@@ -13,6 +14,8 @@ class Routers{
   static String curveanimatedPage = '/curve_animatedCross';
 //  搜索页面
   static String searchPage = '/search_page';
+  // tableView 页面探索
+  static String tableViewPage= 'tableview_page';
 //  动画页面
   static String animationPage = '/animation_page';
 //  AnimatedContainer动画页面
@@ -34,6 +37,9 @@ class Routers{
 
     //搜索页面
     router.define(searchPage, handler: searchRouterHandler);
+
+    //TableView 页面探索
+    router.define(tableViewPage, handler: tableViewHandler);
 
     //动画页面
     router.define(animationPage, handler: animationHandler);
