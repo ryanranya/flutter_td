@@ -38,6 +38,8 @@ dependencies:
   dio: ^3.0.9
   #路由跳转
   fluro: ^1.6.3
+  #tableView
+  flutter_tableview: ^1.0.0
 
 dev_dependencies:
   flutter_test:
