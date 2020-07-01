@@ -19,6 +19,19 @@ class TDFoundPage extends StatelessWidget {
     );
   }
 
+  Widget headerView(String title){
+    return SliverToBoxAdapter(
+      child: Container(
+        child: Row(
+          children: <Widget>[
+            Icon(Icons.android),
+            Text(title),
+          ],
+        ),
+      )
+    );
+  }
+
   Widget contentCell(BuildContext context,int index) {
     TextStyle nameTextStyle = TextStyle(
       fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black,);
@@ -33,6 +46,15 @@ class TDFoundPage extends StatelessWidget {
       child: Container(
         child: Column(
           children: <Widget>[
+            CustomScrollView(
+              slivers: <Widget>[
+                headerView("这是header"),
+                SliverGrid.count(crossAxisCount: 4,children: <Widget>[
+
+                ],)
+              ],
+            ),
+
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
