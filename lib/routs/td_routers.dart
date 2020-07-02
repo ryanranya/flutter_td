@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertd/routs/router_animation.dart';
 import 'package:fluttertd/routs/router_curveanimated.dart';
+import 'package:fluttertd/routs/router_customscrollview.dart';
 import 'package:fluttertd/routs/router_tableview.dart';
 import 'package:fluttertd/routs/search_pagerouter.dart';
 
@@ -22,7 +23,8 @@ class Routers{
   static String animatedContainerPage = '/animated_container';
   // AnimatedCrossFade  动画
   static String animatedCrossFadePage = '/animation_crossfade';
-
+// customScrollView
+  static String customScrollViewPage = '/customscrollview';
 
   static void configureRoutes(Router router){
     router.notFoundHandler = Handler(
@@ -49,6 +51,9 @@ class Routers{
 
 //    AnimatedCrossFade 动画
     router.define(animatedCrossFadePage, handler: animatedCrossFadeHandler);
+
+    //customScrollView页面
+    router.define(customScrollViewPage, handler: customScrollViewHandler);
   }
 
 }

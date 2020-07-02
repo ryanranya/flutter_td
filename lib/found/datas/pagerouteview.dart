@@ -19,12 +19,14 @@ class PageRoutView{
           debugPrint(parmas);
         });
         break;
-
       case 1:
         Application.router.navigateTo(context, Routers.animationPage,transition: TransitionType.native);
         break;
       case 2:
         Application.router.navigateTo(context, Routers.tableViewPage,transition: TransitionType.native);
+        break;
+      case 3:
+        Application.router.navigateTo(context, Routers.customScrollViewPage,transition: TransitionType.native);
         break;
 
       default:
